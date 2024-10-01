@@ -1,0 +1,45 @@
+loadstring(game:HttpGet('https://raw.githubusercontent.com/drillygzzly/Roblox-UI-Libs/main/Yun%20V2%20Lib/Yun%20V2%20Lib%20Source.lua'))()
+
+local Library = initLibrary()
+local Window = Library:Load({name = "Yonath.cc", sizeX = 425, sizeY = 512, color = Color3.fromRGB(152, 83, 172)})
+
+local tab1 = Window:Tab("Main")
+
+local sec1 = tab1:Section{name = "Catch Settings", column = 1}
+
+local hitboxSize = 0
+
+local function resizePart(part)
+    if part:IsA("BasePart") and (part.Name == "Football" or part.Name == "FootballBasePart") then
+        part.Size = Vector3.new(hitboxSize, hitboxSize, hitboxSize)
+    end
+end
+
+Workspace.ChildAdded:Connect(function(child)
+    resizePart(child)
+end)
+
+for _, child in pairs(Workspace:GetChildren()) do
+    resizePart(child)
+end
+
+
+sec1:Toggle {
+    Name = "Customize Magnets",
+    flag = "2", 
+    callback = function(bool)
+        hitboxSize = bool
+    end
+}
+
+sec1:Slider {
+    Name = "Magnet Radius",
+    Default = 0,
+    Min = 0,
+    Max = 25,
+    Decimals = 1,
+    Flag = "slider1",
+    callback = function(bool)
+        hitboxSize = bool
+    end
+}
